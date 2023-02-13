@@ -1,25 +1,25 @@
 import Loading from '../components/Loading'
 import SearchForm from '../components/SearchForm'
-import { useDispatch, useSelector} from 'react-redux'
 import { useEffect, useState } from 'react'
-import { setLoading } from '../features/cocktail/cocktailSlice'
+import CockTail from '../components/CockTail'
+import { setLoading, updateList } from '../features/cocktail/cocktailSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 
-function Home() {
-  const dispatch = useDispatch()
-  const {loading, cocktailsList} = useSelector((store) => store.cocktail)
-  const [searchTerm, setSearchTerm] = useState('')
-  
-  
+function Home() { 
+  const {cocktailsList, loading, searchTerm} = useSelector((store) => store.cocktail)
+  console.log(searchTerm)
+  const dispatch = useDispatch()    
 
   const fetchDrinks = async () => {
     try {
         dispatch(setLoading(true))
         const response = await fetch(`${url}${searchTerm}`)
         const data = await response.json()
-        dispatch(setLoading(false))
-        console.log(data)
+        dispatch(updateList(data))
+        dispatch(setLoading(false))     
     } catch (error) {
         console.log(error)
     }
@@ -46,6 +46,13 @@ useEffect(() => {
   return (
     <section className="section-center">
       <SearchForm />
+      <h2 className='title'>Cocktails</h2>
+      <div className='cocktails-list'>
+        {cocktailsList.drinks.map((item) => {          
+          return <CockTail key={item.idDrink} {...item} />
+        })}
+
+      </div>
     </section>
   )
 }

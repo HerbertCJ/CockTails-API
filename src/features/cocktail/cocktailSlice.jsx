@@ -3,21 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     cocktailsList: [],
     loading: false,
-    search: '',
+    searchTerm: '',
 }
 
 
 export const cocktailSlice = createSlice({
     name: 'cocktail',
     initialState,
-    reducers: {
+    reducers: { 
+        updateList: (state, {payload}) => {
+            state.cocktailsList = payload
+        },
         setLoading: (state, {payload}) => {
             state.loading = payload
-        }
-
+        },
+        updateSearch: (state, {payload}) => {
+            state.searchTerm = payload
+        },
     },
 })
 
-export const {setLoading} = cocktailSlice.actions
+export const {setLoading, updateList, updateSearch} = cocktailSlice.actions
 
 export default cocktailSlice.reducer

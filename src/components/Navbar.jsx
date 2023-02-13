@@ -13,7 +13,7 @@ function NavbarBt() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to='/' eventKey='1'>Home</Nav.Link>
-            <Nav.Link as={Link} to='/about' eventKey='2'>About</Nav.Link>
+            <Nav.Link as={Link} to='/about' eventKey='2'>About</Nav.Link>            
           </Nav>         
         </Navbar.Collapse>
       </Container>

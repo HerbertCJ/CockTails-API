@@ -1,21 +1,25 @@
-import { useRef } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { updateSearch } from "../features/cocktail/cocktailSlice"
+import { useEffect, useRef } from "react"
 
-function SearchForm() {
-  const dispatch = useDispatch()
-  const {searchTerm} = useSelector((store) => store.cocktail)
+function SearchForm({setSearchTerm}) {  
   const searchValue = useRef('')
 
   const searchCocktail = () => {
-    dispatch(updateSearch(searchValue.current.value))
+    setSearchTerm(searchValue.current.value)
+  }
+
+  useEffect(()=> {
+    searchValue.current.focus()
+  }, [])
+
+  function handleSubmit(e) {
+    e.preventDefault()
   }
 
   return (    
     <section className="section-search">
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="name">Search your favorite cocktail</label>
-        <input type="text" id="name" ref={searchValue} onChange={searchCocktail} />
+        <input type="text" name='name' id="name" ref={searchValue} onChange={searchCocktail} />
       </form>
       
     </section>

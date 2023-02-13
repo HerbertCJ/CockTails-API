@@ -79,7 +79,7 @@ function SingleCocktail() {
             <span className='drink-data'>Ingredients: </span>
               {ingredients.map((item, index) => {
                 return (
-                  item ? <span key={index}>{item}</span> : null
+                  item ? <div key={index}>{item}</div> : null
                   )
               })}                   
             </p>
